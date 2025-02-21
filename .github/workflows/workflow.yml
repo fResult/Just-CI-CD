@@ -8,6 +8,7 @@
 
 name: CI workflow
 
+# Event - `on` specifies the event that triggers the workflow
 on:
   push:
     branches:
@@ -21,3 +22,15 @@ on:
   release:
     types:
       - published # e.g. publish Python code to PyPI, Java code to Maven, Docker container to Docker Hub
+
+# Jobs - `jobs` is a list of tasks that run in parallel by default
+jobs:
+  build: # Job named `build`
+    # Runner - `runs-on` specifies the type of runner
+    runs-on: ubuntu-latest # Use Ubuntu runner
+    container: python:3.9-slim # Use Python container
+    # Steps - `steps` is a list of commands that run in sequence
+    steps:
+      # Actions - `uses` specifies the action to run
+      - name: Checkout
+        uses: actions/checkout@v3

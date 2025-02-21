@@ -1,3 +1,11 @@
+# Workflow Composition
+# - Event: Something that activates the execution of the workflow
+# - Jobs: A set of tasks that execute on the same runner (jobs are named whatever you want)
+#   Each job contains Runner, Services (Optional), Steps
+# - Runner: The environment where the job runs (e.g. Ubuntu, Windows, macOS)
+# - Steps: A sequence of tasks that execute on the same runner
+# - Actions: Reusable commands that can be used in steps
+
 name: CI workflow
 
 on:
@@ -12,4 +20,4 @@ on:
       - main
   release:
     types:
-      - published # e.g. publish Python code to PyPI, Java code to Maven, Docker container to Docker Hub, etc.
+      - published # e.g. publish Python code to PyPI, Java code to Maven, Docker container to Docker Hub

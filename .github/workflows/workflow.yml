@@ -29,16 +29,33 @@ jobs:
     # Runner - `runs-on` specifies the type of runner
     runs-on: ubuntu-latest # Use Ubuntu runner
     container: python:3.9-slim # Use Python container
+    services:
+      redis:
+        image: redis:6-alpine
+    #   postgres: # Service name used to access the service
+    #     image: postgres:latest
+    #     env:
+    #       POSTGRES_USER: postgres
+    #       POSTGRES_PASSWORD: pgsecret
+    #       POSTGRES_DB: test_db
+    #     ports:
+    #       - 5432:5432
+    #     # Set health checks to wait for the service to be ready
+    #     options: >-
+    #       --health-cmd pg_isready
+    #       --health-interval 10s
+    #       --health-timeout 5s
+    #       --health-retries 5
 
     # Steps - `steps` is a list of commands that run in sequence
     steps:
-      # Actions - `uses` specifies the action to run
+      # Actions - require the `uses:` to specifies the action to run
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
+          python -m pip install --upgrade pip wheel
           pip install -r requirements.txt
 
       - name: Lint with flake8
@@ -48,3 +65,11 @@ jobs:
 
       - name: Run unit tests with nose
         run: nosetests -v --with-spec --spec-color --with-coverage --cover-package=app
+        # env:
+        #   DATABASE_URI: redis://localhost:6379
+        #   FLASK_APP: service:app
+
+      - name: Upload code coverage
+        uses: codecov/codecov-action@v3
+        with: # Configuration options for the action
+          version: "v0.1.13"

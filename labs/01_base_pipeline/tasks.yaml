@@ -1,12 +1,16 @@
 apiVersion: tekton.dev/v1
 kind: Task
 metadata:
-  name: hello-world
+  name: echo-message
 spec:
+  params:
+    - name: message
+      type: string
+      description: The message to echo
   steps:
     - name: echo
       image: alpine:3
       command:
         - /bin/echo
       args:
-        - Hello World!
+        - $(params.message)

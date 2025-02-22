@@ -92,3 +92,46 @@ It is a software development discipline where you build software so what it can 
 - Requires checks to ensure no bad code gets into main branch and breaks your product
 - Continuous Integration runs tests on every pull request
 - Ensures things work before merging back to main branch
+
+### Continuous Delivery Best Practices
+
+- Make every change releasable
+- Embrace trunk-based development
+- Deliver through an automated pipeline
+
+**More best practices:**
+
+- Automated as many processes as possible
+- Eliminate downtime
+- Release at the granularity of test'
+
+
+### CI/CD Pipeline Requirements
+
+- A code repository
+- A build server
+- An integration server/orchestrator
+- A storage repository
+
+### Deployment or Delivery?
+
+- Continuous Deployment can be part of a Continuous Delivery pipeline
+- Continuous Delivery describes the automated movement of code through the SDLC
+- Continuous Deployment is taking that code and deployment it to production
+- The need for Continuous Deployment depends on business needs
+
+Continuous Delivery is the automated movement of code through the development lifecycle.\
+While Continuous Deployment is taking delivered code and deploying it to production
+
+### Tools of Continuous Delivery
+
+#### Overview of CD Tools
+
+- **Jenkins** - popular, supports many plugins, but not ideal for CD
+- **Spinnakle** - dedicated cloud-agnostic CD tool, native support for load balancers and scaling clusters, but is not a build tool
+- **Concourse CI** - mainly a CI tool (also included with CD) with containers mind, but can run in VMs too
+- **GitLab** - implements CI and CD, easy to automate, also and SCM tool, supports major cloud platforms
+- **Travis CI** - CI tool that has CD capabilities, but isn't feature-rich
+- **Tekton** - can build, test, and deploy to Kubernetes, offers modularity
+- **Go CD** - easy pipeline setup, native Docker and Kubernetes support, build pipelines with YAML, JSON, or GUI
+- **Argo CD** - well designed UI, easy to use integrates with various CI tools

@@ -21,6 +21,7 @@ This folder holds the files for the lab _Create a Base Pipeline_ which is part o
     ```console
     ➜ kubectl apply -f labs/01_base_pipeline/pipeline.yaml
     pipeline.tekton.dev/hello-pipeline created
+    pipeline.tekton.dev/cd-pipeline created
     ```
 
 3. Then, list the task and pipeline we just created.
@@ -28,10 +29,12 @@ This folder holds the files for the lab _Create a Base Pipeline_ which is part o
     ```console
     ➜ kubectl get pipeline,task
     NAME                                 AGE
-    pipeline.tekton.dev/hello-pipeline   33s
+    pipeline.tekton.dev/cd-pipeline      10s
+    pipeline.tekton.dev/hello-pipeline   10s
 
-    NAME                           AGE
-    task.tekton.dev/echo-message   79s
+    NAME                       AGE
+    task.tekton.dev/checkout   15s
+    task.tekton.dev/echo       15s
     ```
 
 4. Run the pipeline using the Tekton CLI

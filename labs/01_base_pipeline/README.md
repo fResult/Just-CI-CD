@@ -12,7 +12,8 @@ This folder holds the files for the lab _Create a Base Pipeline_ which is part o
 
     ```console
     ➜ kubectl apply -f labs/01_base_pipeline/tasks.yaml
-    task.tekton.dev/echo-message created
+    task.tekton.dev/echo created
+    task.tekton.dev/checkout created
     ```
 
 2. Apply `hello-pipeline` pipeline to the cluster.

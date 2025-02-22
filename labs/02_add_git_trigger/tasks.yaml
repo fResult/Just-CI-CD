@@ -1,33 +1,37 @@
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: echo
 spec:
   params:
     - name: message
-      description: The message to echo
       type: string
+      description: The message to echo
   steps:
     - name: echo-message
       image: alpine:3
-      command: [/bin/echo]
-      args: ["$(params.message)"]
+      command:
+        - /bin/echo
+      args:
+        - $(params.message)
 
 ---
-apiVersion: tekton.dev/v1beta1
+
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: checkout
 spec:
   params:
     - name: repo-url
-      description: The URL of the git repo to clone
       type: string
+      description: The URL of the git repository to clone
     - name: branch
-      description: The branch to clone
       type: string
+      description: The branch to clone
   steps:
     - name: checkout
       image: bitnami/git:latest
-      command: [git]
+      command:
+        - git
       args: ["clone", "--branch", "$(params.branch)", "$(params.repo-url)"]

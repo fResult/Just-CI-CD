@@ -1,28 +1,45 @@
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
-metadata:  
+metadata:
+  name: hello-pipeline
+spec:
+  params:
+    - name: message
+  tasks:
+    - name: hello
+      taskRef:
+        name: echo
+      params:
+        - name: message
+          value: $(params.message)
+
+---
+
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
   name: cd-pipeline
 spec:
   params:
     - name: repo-url
     - name: branch
-      default: "master"
+      default: main
   tasks:
     - name: clone
       taskRef:
         name: checkout
       params:
-      - name: repo-url
-        value: "$(params.repo-url)"
-      - name: branch
-        value: "$(params.branch)"
+        - name: repo-url
+          value: $(params.repo-url)
+        - name: branch
+          value: $(params.branch)
 
     - name: lint
       taskRef:
         name: echo
       params:
-      - name: message
-        value: "Calling Flake8 linter..."
+        - name: message
+          value: Calling Flake8 linter...
       runAfter:
         - clone
 
@@ -30,8 +47,8 @@ spec:
       taskRef:
         name: echo
       params:
-      - name: message
-        value: "Running unit tests with PyUnit..."
+        - name: message
+          value: Running unit tests with PyUnit...
       runAfter:
         - lint
 
@@ -39,8 +56,8 @@ spec:
       taskRef:
         name: echo
       params:
-      - name: message
-        value: "Building image for $(params.repo-url) ..."
+        - name: message
+          value: Building image for $(params.repo-url)...
       runAfter:
         - tests
 
@@ -48,7 +65,7 @@ spec:
       taskRef:
         name: echo
       params:
-      - name: message
-        value: "Deploying $(params.branch) branch of $(params.repo-url) ..."
+        - name: message
+          value: Deploying $(params.branch) branch of $(params.repo-url)...
       runAfter:
         - build

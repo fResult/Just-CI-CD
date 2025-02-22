@@ -199,3 +199,5 @@ So, we can call everything in Tekton is Kubernetes Native.
 - Pipelines
 - Tasks
 - Steps
+
+![Physical Building Blocks](https://github.com/user-attachments/assets/66d217cc-fab5-4f20-b627-bf759cbd125f)

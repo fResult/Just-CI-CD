@@ -39,9 +39,28 @@ This folder holds the files for the lab _Create a Base Pipeline_ which is part o
 
 4. Run the pipeline using the Tekton CLI
 
+    **Run the `hello-pipeline`:**
+
     ```console
     ➜ tkn pipeline start hello-pipeline --showlog -p message=Tekkon
     PipelineRun started: hello-pipeline-run-qnlwk
     Waiting for logs to be available...
     [hello : echo-message] Hello Tekkon
+    ```
+
+    **Run the `ci-pipeline`:**
+
+    ```bash
+    tkn pipeline start cd-pipeline \
+          --showlog \
+          -p repo-url=https://github.com/fResult/Just-CI-CD \
+          -p branch=main
+    ```
+
+    Then, we can see the result like this.
+
+    ```console
+    PipelineRun started: cd-pipeline-run-7dxxg
+    Waiting for logs to be available...
+    [clone : checkout] Cloning into 'Just-CI-CD'...
     ```

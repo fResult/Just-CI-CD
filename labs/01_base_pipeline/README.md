@@ -5,11 +5,14 @@ This folder holds the files for the lab _Create a Base Pipeline_ which is part o
 
 ## Available Scripts:
 
+> [!note]
+> Run these commands below from the root directory
+
 1. Apply `echo-message` task to the cluster.
 
     ```console
     ➜ kubectl apply -f labs/01_base_pipeline/tasks.yaml
-    task.tekton.dev/echo-message configured
+    task.tekton.dev/echo-message created
     ```
 
 2. Apply `hello-pipeline` pipeline to the cluster.

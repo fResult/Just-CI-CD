@@ -1,0 +1,59 @@
+apiVersion: triggers.tekton.dev/v1
+kind: EventListener
+metadata:
+  name: cd-listener
+spec:
+  # In OpenShift, there is pre-configured ServiceAccount named "pipeline" that configured with the access control needed to run a pipeline that we can use.
+  serviceAccountName: pipeline
+  triggers:
+    - name: cd-triggers
+      bindings:
+        - name: cd-binding
+      template:
+        name: cd-template
+
+---
+
+apiVersion: triggers.tekton.dev/v1
+kind: TriggerBinding
+metadata:
+  name: cd-binding # Must match name in EventListener
+spec:
+  params:
+    - name: repository
+      value: $(body.repository.url) # Come from a JSON file coming from the body of GitHub Event
+    - name: branch
+      value: $(body.ref)
+
+---
+
+apiVersion: triggers.tekton.dev/v1
+kind: TriggerTemplate
+metadata:
+  name: cd-template # Must match name in EventListener
+spec:
+  params:
+    - name: repository
+      value: The URL of the Git repository
+      default: ""
+    - name: branch
+      value: The branch to process
+      default: main
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1
+      kind: PipelineRun
+      metadata:
+        generateName: cd-pipeline-run- # Use `generateName` to specify partial name to be a unique name
+      spec:
+        serviceAccountName: pipeline
+        pipelineRef:
+          name: cd-pipeline # Must match name in Pipeline
+        params:
+          - name: repo-url
+            value: $(tt.params.repository) # param we get from TriggerTemplate
+          - name: branch
+            value: $(tt.params.branch)
+        resources:
+          - name: source
+            resourceRef:
+              name: skaffold-source

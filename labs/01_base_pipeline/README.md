@@ -27,7 +27,7 @@ This folder holds the files for the lab _Create a Base Pipeline_ which is part o
     ```console
     ➜ kubectl get pipeline,task
     NAME                                 AGE
-    pipeline.tekton.dev/hello-pipeline   20m
+    pipeline.tekton.dev/hello-pipeline   33s
 
     NAME                           AGE
     task.tekton.dev/echo-message   79s
@@ -36,8 +36,8 @@ This folder holds the files for the lab _Create a Base Pipeline_ which is part o
 4. Run the pipeline using the Tekton CLI
 
     ```console
-    ➜ tkn pipeline start --showlog hello-pipeline
-    PipelineRun started: hello-pipeline-run-tq7p5
+    ➜ tkn pipeline start hello-pipeline --showlog -p message=Tekkon
+    PipelineRun started: hello-pipeline-run-qnlwk
     Waiting for logs to be available...
-    [hello : echo] Hello World!
+    [hello : echo-message] Hello Tekkon
     ```

@@ -8,7 +8,7 @@ spec:
   tasks:
     - name: hello
       taskRef:
-        name: echo-message
+        name: echo
       params:
         - name: message
           value: $(params.message)

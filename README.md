@@ -201,3 +201,7 @@ So, we can call everything in Tekton is Kubernetes Native.
 - Steps
 
 ![Physical Building Blocks](https://github.com/user-attachments/assets/66d217cc-fab5-4f20-b627-bf759cbd125f)
+
+#### Tekton trigger flow
+
+![Tekton Trigger Flow](https://github.com/user-attachments/assets/613adf78-319b-435a-97ed-17ec1b36bde0)

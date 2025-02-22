@@ -13,7 +13,7 @@ spec:
       command:
         - /bin/echo
       args:
-        - Hello $(params.message)!
+        - $(params.message)
 
 ---
 

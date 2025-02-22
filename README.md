@@ -205,3 +205,9 @@ So, we can call everything in Tekton is Kubernetes Native.
 #### Tekton trigger flow
 
 ![Tekton Trigger Flow](https://github.com/user-attachments/assets/613adf78-319b-435a-97ed-17ec1b36bde0)
+
+EventListener, TriggerBinding, and TriggerTemplate are declared in [Event and Triggers Manifest](tekton-manifest-examples/3_event-and-triggers.yml)
+
+**Parameters flow in between Triggers in the Event:**
+
+![Parameters Flow](https://github.com/user-attachments/assets/82245465-02a5-4d31-883b-183b20acc3cb)

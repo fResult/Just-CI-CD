@@ -2,6 +2,30 @@
 
 This repository is for learning about the CI/CD with Github Actions from the course [Continuous Integration and Continuous Delivery (CI/CD)](https://www.coursera.org/learn/continuous-integration-and-continuous-delivery-ci-cd) on Coursera
 
+## Prerequisite
+
+- Git
+- Tekton CLI
+- Kubernetes
+- Docker (or other container tool)
+
+In the CD [Labs](./labs) you may need to install [Tekton Pipelines](https://tekton.dev/docs/installation/pipelines) following this command.
+
+```bash
+kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
+```
+
+Then list `tekton` pods from all namespaces.
+
+```console
+➜ kubectl get po -A | grep tekton
+NAMESPACE                   NAME                                                READY  STATUS   RESTARTS  AGE
+tekton-pipelines-resolvers  tekton-pipelines-remote-resolvers-5d579688f9-2tc2k  1/1    Running  0         11m
+tekton-pipelines            tekton-events-controller-865fcb5d99-gmhr6           1/1    Running  0         11m
+tekton-pipelines            tekton-pipelines-controller-dc86f7cd7-qkc5w         1/1    Running  0         11m
+tekton-pipelines            tekton-pipelines-webhook-7dddcf9484-ct2cv           1/1    Running  0         11m
+```
+
 ## Continuous Integration and Continuous Delivery (CI/CD)
 
 CI/CD is NOT one thing, it's 2 separate and distinct things.
@@ -161,3 +185,17 @@ While Continuous Deployment is taking delivered code and deploying it to product
 - Standardizes tooling and processes (so it works well with other CI/CD tools, e.g. Jenkins, Skaffold, or KNative)
 - Made for reusability
 
+### Tekton
+
+Tekton is a flexible, open source framework for creating CI/CD pipelines.
+
+The building blocks in Tekton are Kubernetes Custom Resource Definitions (CRD).\
+So, we can call everything in Tekton is Kubernetes Native.
+
+#### Tekton Building Blocks
+
+- Events
+- Triggers
+- Pipelines
+- Tasks
+- Steps

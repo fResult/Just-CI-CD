@@ -53,3 +53,10 @@ This folder holds the files for the lab: *Integrate Unit Test Automation* which 
     ➜ tkn hub install task flake8
     Task flake8(0.1) installed in default namespace
     ```
+
+2. Modify and use`lint` task with `flake8` in the Pipeline
+
+    ```console
+    ➜ kubectl apply -f labs/04_unit_test_automation/pipeline.yaml
+    pipeline.tekton.dev/cd-pipeline configured
+    ```

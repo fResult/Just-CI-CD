@@ -4,6 +4,16 @@ This folder holds the files for the lab: *Integrate Unit Test Automation* which 
 
 ## Prerequisite
 
+
+We are going to use `flake8` to lint our code.\
+Luckily, there is it in the Tekton Catalogue.\
+So, we can install by this command:
+
+```console
+➜ tkn hub install task flake8
+Task flake8(0.1) installed in default namespace
+```
+
 1. Establish the Tasks
 
     ```console
@@ -19,15 +29,6 @@ This folder holds the files for the lab: *Integrate Unit Test Automation* which 
     > task.tekton.dev/git-clone created
     > ```
 
-    Check that we have all these tasks.
-
-    ```console
-    ➜ tkn task ls
-    NAME        DESCRIPTION              AGE
-    cleanup     This task will clea...   2 minutes ago
-    echo                                 2 minutes ago
-    git-clone   These Tasks are Git...   2 minutes ago
-    ```
 
 2. Establish the Workspace
 
@@ -43,25 +44,35 @@ This folder holds the files for the lab: *Integrate Unit Test Automation* which 
 
 ## Available Scripts
 
-1. Add the flake8 Task
 
-    We are going to use `flake8` to lint our code.\
-    Luckily, there is it in the Tekton Catalogue.\
-    So, we can install by this command:
+1. Apply Tekton and Kubernetes manifest files
 
     ```console
-    ➜ tkn hub install task flake8
-    Task flake8(0.1) installed in default namespace
+    ➜ kubectl apply -f labs/04_unit_test_automation
+    pipeline.tekton.dev/cd-pipeline created
+    persistentvolumeclaim/pipelinerun-pvc created
+    task.tekton.dev/echo created
+    task.tekton.dev/cleanup created
+    task.tekton.dev/nose created
     ```
 
-2. Modify and use`lint` task with `flake8` in the Pipeline
+    Check that we have all these tasks and pipeline.
 
     ```console
-    ➜ kubectl apply -f labs/04_unit_test_automation/pipeline.yaml
-    pipeline.tekton.dev/cd-pipeline configured
+    ➜ tkn task ls
+    NAME        DESCRIPTION              AGE
+    cleanup     This task will clea...   2 minutes ago
+    echo                                 2 minutes ago
+    flake8      This task will run ...   2 minutes ago
+    git-clone   These Tasks are Git...   2 minutes ago
+    nose                                 2 minutes ago
+
+    ➜ tkn pipeline ls
+    NAME         AGE        LAST RUN                STARTED         DURATION   STATUS
+    cd-pipeline  3 minutes  cd-pipeline-run-cqccb   3 minutes ago   45s        Succeeded
     ```
 
-3. Run the Pipeline
+2. Run the Pipeline
 
     ```bash
     ➜ tkn pipeline start cd-pipeline \
@@ -96,18 +107,41 @@ This folder holds the files for the lab: *Integrate Unit Test Automation* which 
     [lint : flake8] [notice] To update, run: pip install --upgrade pip
     [lint : flake8] 0
 
-    [tests : echo-message] Running unit tests with PyUnit...
+    [tests : nosetests] 
+    [tests : nosetests]  REST API Server Tests 
+    [tests : nosetests] - It should Create a counter
+    [tests : nosetests] - It should not Create a duplicate counter
+    [tests : nosetests] - It should Delete a counter
+    [tests : nosetests] - It should be healthy
+    [tests : nosetests] - It should call the index call
+    [tests : nosetests] - It should List counters
+    [tests : nosetests] - It should Read a counter
+    [tests : nosetests] - It should Update a counter
+    [tests : nosetests] - It should not Update a missing counter
+    [tests : nosetests]
+    [tests : nosetests] Name                             Stmts   Miss  Cover   Missing
+    [tests : nosetests] --------------------------------------------------------------
+    [tests : nosetests] service/__init__.py                  8      0   100%
+    [tests : nosetests] service/common/log_handlers.py      11      1    91%   37
+    [tests : nosetests] service/common/status.py            45      0   100%
+    [tests : nosetests] service/routes.py                   48      0   100%
+    [tests : nosetests] --------------------------------------------------------------
+    [tests : nosetests] TOTAL                              112      1    99%
+    [tests : nosetests] ----------------------------------------------------------------------
+    [tests : nosetests] Ran 9 tests in 0.468s
+    [tests : nosetests]
+    [tests : nosetests] OK
+    [tests : nosetests]
 
     [build : echo-message] Building image for https://github.com/fResult/Just-CI-CD.git ...
 
     [deploy : echo-message] Deploying main branch of https://github.com/fResult/Just-CI-CD.git ...
     ```
 
-4. Create a `nose` Test Task
+    We can see the PipelineRun status following this command:
 
     ```console
-    ➜ kubectl apply -f labs/04_unit_test_automation/tasks.yaml
-    task.tekton.dev/echo configured
-    task.tekton.dev/cleanup configured
-    task.tekton.dev/nose created
+    ➜ tkn pipelinerun ls
+    NAME                    STARTED         DURATION   STATUS
+    cd-pipeline-run-cqccb   6 minutes ago   45s        Succeeded
     ```

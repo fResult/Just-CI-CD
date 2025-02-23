@@ -31,3 +31,12 @@ This folder holds the files for the lab: *Use Tekton CD Catalog* which is part o
     task.tekton.dev/echo created
     task.tekton.dev/checkout created
     ```
+
+3. Create a PersistenceVolumeClaim as Workspace
+
+    ```console
+    ➜ kubectl apply -f labs/03_use_tekton_catalog/pvc.yaml
+    persistentvolumeclaim/pipelinerun-pvc created
+    ```
+
+    We can now reference this persistent volume by its name   `pipelinerun-pvc` when creating workspaces for our Tekton tasks.

@@ -23,3 +23,11 @@ This folder holds the files for the lab: *Use Tekton CD Catalog* which is part o
     ```bash
     kubectl apply -f https://raw.githubusercontent.com/tektoncd/catalog/main/task/git-clone/0.9/git-clone.yaml
     ```
+
+2. Create a `echo` and `checkout` tasks
+
+    ```console
+    ➜ kubectl apply -f labs/03_use_tekton_catalog/tasks.yaml
+    task.tekton.dev/echo created
+    task.tekton.dev/checkout created
+    ```

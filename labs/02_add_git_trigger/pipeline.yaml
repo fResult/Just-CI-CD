@@ -22,7 +22,10 @@ metadata:
 spec:
   params:
     - name: repo-url
+      type: string
+      default: " "
     - name: branch
+      type: string
       default: main
   tasks:
     - name: clone

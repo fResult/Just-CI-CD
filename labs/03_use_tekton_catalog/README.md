@@ -41,7 +41,7 @@ This folder holds the files for the lab: *Use Tekton CD Catalog* which is part o
 
     We can now reference this persistent volume by its name   `pipelinerun-pvc` when creating workspaces for our Tekton tasks.
 
-4. Add a Workspace to the Pipeline
+4. Create Pipeline with the `output` Workspace for `git-clone` task
 
     ```console
     ➜ kubectl apply -f labs/03_use_tekton_catalog/pipeline.yaml
@@ -49,3 +49,63 @@ This folder holds the files for the lab: *Use Tekton CD Catalog* which is part o
     ```
 
     We are now ready to run our pipeline.
+
+5. Run the Pipeline
+
+    ```bash
+    tkn pipeline start cd-pipeline \
+        -p repo-url=https://github.com/fResult/Just-CI-CD \
+        -p branch=main \
+        -w name=pipeline-workspace,claimName=pipelinerun-pvc \
+        --showlog
+    ```
+
+    **We should see output similar to this:**
+
+    ```console
+    ➜ tkn pipeline start cd-pipeline \
+    >     -p repo-url=https://github.com/fResult/Just-CI-CD \
+    >     -p branch=main \
+    >     -w name=pipeline-workspace,claimName=pipelinerun-pvc \
+    >     --showlog
+    PipelineRun started: cd-pipeline-run-94wmr
+    Waiting for logs to be available...
+    [clone : clone] <- There will be many lines from git-clone
+    [clone : clone] ...
+    [clone : clone] ...
+    [clone : clone] + printf '%s' https://github.com/fResult/Just-CI-CD.git
+
+    [lint : echo-message] Calling Flake8 linter...
+
+    [tests : echo-message] Running unit tests with PyUnit...
+
+    [build : echo-message] Building image for https://github.com/fResult/Just-CI-CD.git ...
+
+    [deploy : echo-message] Deploying main branch of https://github.com/fResult/Just-CI-CD.git ...
+    ```
+
+    We can see PipelineRun status following this command.
+
+    ```console
+    ➜ tkn pipelinerun ls
+    NAME                    STARTED         DURATION   STATUS
+    cd-pipeline-run-94wmr   9 minutes ago   32s        Succeeded
+    ```
+
+    And also check the logs of the last run with:
+
+    ```console
+    ➜ tkn pipelinerun logs --last
+    [clone : clone] <- There will be many lines from git-clone
+    [clone : clone] ...
+    [clone : clone] ...
+    [clone : clone] + printf '%s' https://github.com/fResult/Just-CI-CD.git
+
+    [lint : echo-message] Calling Flake8 linter...
+
+    [tests : echo-message] Running unit tests with PyUnit...
+
+    [build : echo-message] Building image for https://github.com/fResult/Just-CI-CD.git ...
+
+    [deploy : echo-message] Deploying main branch of https://github.com/fResult/Just-CI-CD.git ...
+    ```

@@ -40,3 +40,12 @@ This folder holds the files for the lab: *Use Tekton CD Catalog* which is part o
     ```
 
     We can now reference this persistent volume by its name   `pipelinerun-pvc` when creating workspaces for our Tekton tasks.
+
+4. Add a Workspace to the Pipeline
+
+    ```console
+    ➜ kubectl apply -f labs/03_use_tekton_catalog/pipeline.yaml
+    pipeline.tekton.dev/cd-pipeline created
+    ```
+
+    We are now ready to run our pipeline.

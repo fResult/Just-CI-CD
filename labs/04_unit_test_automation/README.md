@@ -40,3 +40,16 @@ This folder holds the files for the lab: *Integrate Unit Test Automation* which 
     ```
 
     We can now reference this persistent volume claim by its name `pipelinerun-pvc` when creating workspaces for your Tekton tasks.
+
+## Available Scripts
+
+1. Add the flake8 Task
+
+    We are going to use `flake8` to lint our code.\
+    Luckily, there is it in the Tekton Catalogue.\
+    So, we can install by this command:
+
+    ```console
+    ➜ tkn hub install task flake8
+    Task flake8(0.1) installed in default namespace
+    ```

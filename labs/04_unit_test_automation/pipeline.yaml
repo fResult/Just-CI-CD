@@ -24,10 +24,10 @@ spec:
       taskRef:
         name: git-clone
       params:
-      - name: url
-        value: $(params.repo-url)
-      - name: revision
-        value: $(params.branch)
+        - name: url
+          value: $(params.repo-url)
+        - name: revision
+          value: $(params.branch)
       runAfter:
         - init
 
@@ -49,8 +49,8 @@ spec:
       taskRef:
         name: echo
       params:
-      - name: message
-        value: Running unit tests with PyUnit...
+        - name: message
+          value: Running unit tests with PyUnit...
       runAfter:
         - lint
 
@@ -58,8 +58,8 @@ spec:
       taskRef:
         name: echo
       params:
-      - name: message
-        value: Building image for $(params.repo-url) ...
+        - name: message
+          value: Building image for $(params.repo-url) ...
       runAfter:
         - tests
 
@@ -67,7 +67,7 @@ spec:
       taskRef:
         name: echo
       params:
-      - name: message
-        value: Deploying $(params.branch) branch of $(params.repo-url) ...
+        - name: message
+          value: Deploying $(params.branch) branch of $(params.repo-url) ...
       runAfter:
         - build

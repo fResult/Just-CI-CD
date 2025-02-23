@@ -60,3 +60,45 @@ This folder holds the files for the lab: *Integrate Unit Test Automation* which 
     ➜ kubectl apply -f labs/04_unit_test_automation/pipeline.yaml
     pipeline.tekton.dev/cd-pipeline configured
     ```
+
+3. Run the Pipeline
+
+    ```bash
+    ➜ tkn pipeline start cd-pipeline \
+          -p repo-url="https://github.com/fResult/Just-CI-CD.git" \
+          -p branch="main" \
+          -w name=pipeline-workspace,claimName=pipelinerun-pvc \
+          --showlog
+    ```
+
+    We can see the run pipeline result like this:
+
+    ```console
+    ➜ tkn pipeline start cd-pipeline \
+    >     -p repo-url="https://github.com/fResult/Just-CI-CD.git" \
+    >     -p branch="main" \
+    >     -w name=pipeline-workspace,claimName=pipelinerun-pvc \
+    >     --showlog
+    PipelineRun started: cd-pipeline-run-cqccb
+    Waiting for logs to be available...
+    [init : remove] Removing all files from /workspace/source ...
+
+    [clone : clone] <- There will be many lines from git-clone
+    [clone : clone] ...
+    [clone : clone] ...
+    [clone : clone] + printf '%s' https://github.com/fResult/Just-CI-CD.git
+
+    [lint : flake8] ...
+    [lint : flake8] ...
+    [lint : flake8] Successfully installed [... list of package ...]
+    [lint : flake8] ...
+    [lint : flake8] [notice] A new release of pip is available: 23.0.1 -> 25.0.1
+    [lint : flake8] [notice] To update, run: pip install --upgrade pip
+    [lint : flake8] 0
+
+    [tests : echo-message] Running unit tests with PyUnit...
+
+    [build : echo-message] Building image for https://github.com/fResult/Just-CI-CD.git ...
+
+    [deploy : echo-message] Deploying main branch of https://github.com/fResult/Just-CI-CD.git ...
+    ```

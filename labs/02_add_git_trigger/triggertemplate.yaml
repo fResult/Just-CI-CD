@@ -4,11 +4,23 @@ metadata:
   name: cd-template
 spec:
   params:
-  # Add parameters here
+    - name: repository
+      description: The git repository
+      default: ""
+    - name: branch
+      description: The branch for the git repository
+      default: main
   resourcetemplates:
-    - apiVersion: tekton.dev/v1beta1
+    - apiVersion: tekton.dev/v1
       kind: PipelineRun
       metadata:
         generateName: cd-pipeline-run-
       spec:
-      # Add pipeline definition here
+        serviceAccountName: pipeline
+        pipelineRef:
+          name: cd-pipeline
+        params:
+          - name: repo-url
+            value: $(params.repository)
+          - name: branch
+            value: $(params.branch)

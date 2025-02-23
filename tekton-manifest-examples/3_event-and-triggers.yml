@@ -1,4 +1,4 @@
-apiVersion: triggers.tekton.dev/v1
+apiVersion: triggers.tekton.dev/v1beta1
 kind: EventListener
 metadata:
   name: cd-listener
@@ -14,7 +14,7 @@ spec:
 
 ---
 
-apiVersion: triggers.tekton.dev/v1
+apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
   name: cd-binding # Must match name in EventListener
@@ -27,7 +27,7 @@ spec:
 
 ---
 
-apiVersion: triggers.tekton.dev/v1
+apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
   name: cd-template # Must match name in EventListener

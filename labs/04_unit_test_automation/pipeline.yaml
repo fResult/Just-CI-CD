@@ -1,4 +1,4 @@
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: cd-pipeline
@@ -32,8 +32,11 @@ spec:
         - init
 
     - name: lint
+      workspaces:
+        - name: source
+          workspace: pipeline-workspace
       taskRef:
-        name: echo
+        name: flake8
       params:
       - name: message
         value: Calling Flake8 linter...

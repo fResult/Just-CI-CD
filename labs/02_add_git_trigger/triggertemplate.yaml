@@ -8,10 +8,10 @@ spec:
       description: The git repository
       default: ""
     - name: branch
-      description: The branch for the git repository
+      description: the branch for the git repository
       default: main
   resourcetemplates:
-    - apiVersion: tekton.dev/v1
+    - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
       metadata:
         generateName: cd-pipeline-run-
@@ -21,6 +21,6 @@ spec:
           name: cd-pipeline
         params:
           - name: repo-url
-            value: $(params.repository)
+            value: $(tt.params.repository)
           - name: branch
-            value: $(params.branch)
+            value: $(tt.params.branch)

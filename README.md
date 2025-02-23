@@ -9,10 +9,11 @@ This repository is for learning about the CI/CD with Github Actions from the cou
 - Kubernetes
 - Docker (or other container tool)
 
-In the CD [Labs](./labs) you may need to install [Tekton Pipelines](https://tekton.dev/docs/installation/pipelines) following this command.
+In the CD [Labs](./labs) you may need to install [Tekton Pipelines](https://tekton.dev/docs/installation/pipelines), [Tekton Triggers](https://tekton.dev/docs/triggers/install) following this command.
 
 ```bash
 kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
+kubectl apply --filename https://storage.googleapis.com/tekton-releases/triggers/latest/release.yaml
 ```
 
 Then list `tekton` pods from all namespaces.

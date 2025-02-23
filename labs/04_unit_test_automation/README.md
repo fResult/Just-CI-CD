@@ -75,8 +75,8 @@ This folder holds the files for the lab: *Integrate Unit Test Automation* which 
 
     ```console
     ➜ tkn pipeline start cd-pipeline \
-    >     -p repo-url="https://github.com/fResult/Just-CI-CD.git" \
-    >     -p branch="main" \
+    >     -p repo-url=https://github.com/fResult/Just-CI-CD.git \
+    >     -p branch=main \
     >     -w name=pipeline-workspace,claimName=pipelinerun-pvc \
     >     --showlog
     PipelineRun started: cd-pipeline-run-cqccb
@@ -101,4 +101,13 @@ This folder holds the files for the lab: *Integrate Unit Test Automation* which 
     [build : echo-message] Building image for https://github.com/fResult/Just-CI-CD.git ...
 
     [deploy : echo-message] Deploying main branch of https://github.com/fResult/Just-CI-CD.git ...
+    ```
+
+4. Create a `nose` Test Task
+
+    ```console
+    ➜ kubectl apply -f labs/04_unit_test_automation/tasks.yaml
+    task.tekton.dev/echo configured
+    task.tekton.dev/cleanup configured
+    task.tekton.dev/nose created
     ```

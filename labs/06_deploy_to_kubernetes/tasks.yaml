@@ -1,4 +1,4 @@
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: echo
@@ -10,11 +10,14 @@ spec:
   steps:
     - name: echo-message
       image: alpine:3
-      command: [/bin/echo]
-      args: ["$(params.message)"]
+      command:
+        - /bin/echo
+      args:
+        - $(params.message)
 
 ---
-apiVersion: tekton.dev/v1beta1
+
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: cleanup
@@ -50,18 +53,19 @@ spec:
         fi
 
 ---
-apiVersion: tekton.dev/v1beta1
+
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: nose
 spec:
+  workspaces:
+    - name: source
   params:
     - name: args
       description: Arguments to pass to nose
       type: string
       default: "-v"
-  workspaces:
-    - name: source
   steps:
     - name: nosetests
       image: python:3.9-slim

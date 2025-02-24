@@ -58,6 +58,9 @@ spec:
         - lint
 
     - name: build
+      workspaces:
+        - name: source
+          workspace: pipeline-workspace
       taskRef:
         name: echo
       params:

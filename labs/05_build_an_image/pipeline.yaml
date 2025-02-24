@@ -6,6 +6,7 @@ spec:
   workspaces:
     - name: pipeline-workspace
   params:
+    - name: build-image
     - name: repo-url
     - name: branch
       default: master
@@ -64,8 +65,8 @@ spec:
       taskRef:
         name: buildah
       params:
-      - name: message
-        value: Building image for $(params.repo-url) ...
+      - name: IMAGE
+        value: $(params.build-image)
       runAfter:
         - tests
 

@@ -30,7 +30,7 @@ This folder holds the files for the lab: *Building an Image* which is part of th
 3. check that we have all these tasks.
 
     ```console
-    ➜ tkn tsk ls
+    ➜ tkn task ls
     NAME        DESCRIPTION              AGE
     buildah     Buildah task builds...   2 hours ago
     checkout                             13 hours ago

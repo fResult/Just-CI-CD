@@ -74,10 +74,10 @@ spec:
     - name: deploy
       taskRef:
         name: openshift-client
-        resolver: cluster
+        kind: ClusterTask
       params:
       - name: SCRIPT
         value: |
-          oc create deploy $(params.app-name) --image=$(params.build-image)
+          oc create deploy $(params.app-name) --image $(params.build-image)
       runAfter:
         - build

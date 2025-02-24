@@ -72,7 +72,8 @@ spec:
 
     - name: deploy
       taskRef:
-        name: echo
+        name: openshift-client
+        resolver: cluster
       params:
       - name: message
         value: Deploying $(params.branch) branch of $(params.repo-url) ...

@@ -62,7 +62,7 @@ spec:
         - name: source
           workspace: pipeline-workspace
       taskRef:
-        name: echo
+        name: buildah
       params:
       - name: message
         value: Building image for $(params.repo-url) ...
